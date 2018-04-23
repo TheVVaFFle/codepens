@@ -1,11 +1,11 @@
 # Code Pens
 
 ### Overview
-[My CodePen profile](https://codepen.io/TheVVaFFle/pens/popular/)
+[My CodePens (30k+ views)](https://codepen.io/TheVVaFFle)
 
-[CodePen project(s) (40k+ views)](https://codepen.io/TheVVaFFle/projects/public/)
+[My CodePen project(s) (40k+ views)](https://codepen.io/TheVVaFFle/projects/public/)
 
-A conglomeration of the various pens I have created on the free coding website CodePen.io. I have moved them here into a single repo for easy viewing.
+A conglomeration of the various pens I have created on the free coding website [CodePen.io](https://codepen.io/TheVVaFFle). I have moved them here into a single repo for easy viewing.
 
 Within each pen directory is an "index.html" file. Double click on it or drag it into your browser to view. No setup required.
 
