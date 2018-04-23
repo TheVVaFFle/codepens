@@ -7,6 +7,6 @@
 
 A conglomeration of the various pens I have created on the free coding website [CodePen.io](https://codepen.io/TheVVaFFle). I have moved them here into a single repo for easy viewing.
 
-Within each pen directory is an "index.html" file. Double click on it or drag it into your browser to view. No setup required.
+Within each pen directory is an "index.html" file. Double click on it or drag it into your browser (Only tested Chrome) to view. No setup required.
 
 Thanks and enjoy!
