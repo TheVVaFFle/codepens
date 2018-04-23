@@ -1,0 +1,256 @@
+const getElement = el => document.getElementById(el)
+const setStyle = (el, prop, val) => el.style[prop] = val
+const resetStyles = el => el.removeAttribute('style')
+const addClass = (el, className) => el.classList.add(className)
+const removeClass = (el, className) => el.classList.remove(className)
+const removeChild = (el, child) => {
+  if(child && child.parentNode == el) el.removeChild(child)
+}
+const removeLastChild = el => {
+  if(el.hasChildNodes()) el.removeChild(el.lastChild)
+}
+const removeChildren = el => {
+  while(el.hasChildNodes()) el.removeChild(el.lastChild)
+}
+const isShowingEnterPinScreen = () => ENTER_PIN_SCREEN.classList.contains('showing')
+
+const TIME_INFO_BOX = getElement('time-info-box'),
+      TIME = getElement('time'),
+      DATE = getElement('date'),
+      LOCK_SCREEN = getElement('lock-screen'),
+      ENTER_PIN_SCREEN = getElement('enter-pin-screen'),
+      BACK_TO_LOCK_SCREEN = getElement('back-to-lock-screen'),
+      ENTERED_NUMBERS = getElement('entered-numbers'),
+      BACKSPACE = getElement('backspace'),
+      PIN_HINT = getElement('pin-hint'),
+      CONFIRM_PIN = getElement('confirm-pin'),
+      EXTRA_SWIPE_HINT = getElement('extra-swipe-hint')
+
+const VALID_PIN = '1234'
+
+let STATE = {
+  mouseDownPos: 0,
+  hasSwipeStarted: false,
+  isMouseDown: false,
+  mouseDownTime: 0,
+  enteredPin: ''
+}
+
+const setTime = () => {
+  const timeH1 = TIME.getElementsByTagName('h1')[0],
+        dateH1 = DATE.getElementsByTagName('h1')[0]
+  const currentTime = moment().format("h:mm"),
+        day = moment().format("dddd"),
+        monthYear = moment().format("MMMM D"),
+        currentDate =  `${day}, ${monthYear}`
+  timeH1.innerHTML = currentTime
+  dateH1.innerHTML = currentDate
+}
+
+let removeBounceTimeout = null
+const bounceLockScreen = () => {
+  addClass(LOCK_SCREEN, 'bounce')
+  removeBounceTimeout = setTimeout(() => removeClass(LOCK_SCREEN, 'bounce'), 800)
+}
+
+const endBounceLockScreen = () => {
+  removeClass(LOCK_SCREEN, 'bounce')
+  clearTimeout(removeBounceTimeout)
+}
+
+const onScreenSwipe = e => {
+  const top = LOCK_SCREEN.getBoundingClientRect().top,
+        height = LOCK_SCREEN.clientHeight,
+        mouseY = e.clientY - top - STATE.mouseDownPos,
+        swipePercentage = Math.max(-0.1, (mouseY / height).toFixed(2) * -1)
+  if(STATE.isMouseDown){
+    const scale = 1 - swipePercentage,
+          opacity = Math.max(0, Math.min(1, 1 - swipePercentage * 2)).toFixed(2),
+          translateX = `translateX(-50%) scale3d(${scale},${scale},${scale})`
+    if(swipePercentage > 0.1){
+      STATE.hasSwipeStarted = true
+      addClass(LOCK_SCREEN, 'swiping')
+    }  
+    setStyle(TIME_INFO_BOX, 'opacity', opacity)
+    setStyle(TIME_INFO_BOX, 'transform', translateX)
+    setStyle(LOCK_SCREEN, 'opacity', opacity)
+  }
+}
+
+const endScreenSwipe = () => {
+  STATE.isMouseDown = false
+  STATE.hasSwipeStarted = false
+  resetStyles(LOCK_SCREEN)
+  resetStyles(TIME_INFO_BOX)
+  removeClass(LOCK_SCREEN, 'swiping')
+}
+
+const swipeCompleted = () => {
+  addClass(LOCK_SCREEN, 'swipe-completed')
+  removeClass(LOCK_SCREEN, 'bounce')
+  addClass(ENTER_PIN_SCREEN, 'showing')
+  STATE.hasSwipeStarted = false
+}
+
+const determineSwipeSuccess = () => {
+  const timeDiff = moment().valueOf() - STATE.mouseDownTime
+  if(timeDiff < 250){
+    if(STATE.hasSwipeStarted){
+      swipeCompleted()
+      createHintCookie()
+    }
+    else{
+      bounceLockScreen()
+    }
+  }
+}
+
+const backToLockScreen = () => {
+  removeClass(LOCK_SCREEN, 'swipe-completed')
+  removeClass(ENTER_PIN_SCREEN, 'showing')
+  clearPin()
+  STATE.hasSwipeStarted = false
+}
+
+const addToEnteredNumbers = e => {
+  let num = document.createElement('div'),
+      numVal = isNaN(e) ? e.currentTarget.dataset.num : e
+  addClass(num, 'num')
+  num.innerText = numVal
+  ENTERED_NUMBERS.appendChild(num)
+  STATE.enteredPin += numVal
+  setTimeout(() => addClass(num, 'hidden'), 500)
+}
+
+const backspaceOnPin = () => {
+  if(ENTERED_NUMBERS.hasChildNodes()){
+    const toBeRemoved = ENTERED_NUMBERS.lastChild
+    addClass(toBeRemoved, 'erased')
+    setTimeout(() => {
+      removeChild(ENTERED_NUMBERS, toBeRemoved)
+      if(STATE.enteredPin.length >= 1) STATE.enteredPin = STATE.enteredPin.slice(0, -1)
+    }, 100)
+  }
+}
+
+const clearPin = () => {
+  removeChildren(ENTERED_NUMBERS)
+  STATE.enteredPin = ''
+}
+
+let removeErrorTimeout = null
+const confirmPin = () => {
+  if(STATE.enteredPin === VALID_PIN){
+    unlockedPhone()
+  }
+  else{
+    addClass(PIN_HINT, 'error')
+    removeErrorTimeout = setTimeout(() => removeClass(PIN_HINT, 'error'), 1000)
+  }
+}
+
+const unlockedPhone = () => {
+  addClass(ENTER_PIN_SCREEN, 'completed')
+  setTimeout(() => {
+    addClass(ENTER_PIN_SCREEN, 'transitioning')
+    removeClass(LOCK_SCREEN, 'swipe-completed')
+    removeClass(ENTER_PIN_SCREEN, 'showing')
+    removeClass(ENTER_PIN_SCREEN, 'completed')
+    clearPin()
+    setTimeout(() => removeClass(ENTER_PIN_SCREEN, 'transitioning'), 250)
+  }, 680)
+}
+
+const createHintCookie = () => {
+  if(!sessionStorage.getItem('hide-hint')){ 
+    addClass(EXTRA_SWIPE_HINT, 'hide-hint')
+    sessionStorage.setItem('hide-hint', true)
+  }
+}
+
+const destroyHintCookie = () => {
+  if(sessionStorage.getItem('hide-hint')) sessionStorage.removeItem('hide-hint')
+}
+
+LOCK_SCREEN.onmousemove = e => {
+  onScreenSwipe(e)
+}
+
+LOCK_SCREEN.onmousedown = e => {
+  STATE.mouseDownPos = e.clientY - LOCK_SCREEN.getBoundingClientRect().top
+  STATE.isMouseDown = true
+  endBounceLockScreen()
+  STATE.mouseDownTime = moment().valueOf()
+}
+
+LOCK_SCREEN.onmouseup = () => {
+  determineSwipeSuccess()
+  endScreenSwipe()
+}
+
+LOCK_SCREEN.onmouseleave = () => {
+  if(STATE.isMouseDown){
+    determineSwipeSuccess()
+    endScreenSwipe()
+  }
+}
+
+BACK_TO_LOCK_SCREEN.onclick = () => {
+  backToLockScreen()
+}
+
+let backSpaceInterval = null
+BACKSPACE.onmousedown = () => {
+  STATE.mouseDownTime = moment().valueOf()
+  backSpaceInterval = setInterval(() => {
+    const timeDiff = moment().valueOf() - STATE.mouseDownTime
+    if(timeDiff >= 1000) clearPin()
+  }, 100)
+}
+
+BACKSPACE.onmouseup = () => {
+  const timeDiff = moment().valueOf() - STATE.mouseDownTime
+  clearInterval(backSpaceInterval)
+  if(timeDiff < 1000){
+    backspaceOnPin()
+  }
+}
+
+BACKSPACE.onmouseleave = () => {
+  clearInterval(backSpaceInterval)
+}
+
+CONFIRM_PIN.onclick = () => {
+  confirmPin()
+}
+
+CONFIRM_PIN.onmousedown = () => {
+  removeClass(PIN_HINT, 'error')
+  clearTimeout(removeErrorTimeout)
+}
+
+window.onkeydown = e => {
+  if(isShowingEnterPinScreen()){
+    if(e.keyCode >= 48 && e.keyCode <= 57){
+      let num = (e.keyCode - 48).toString()
+      addToEnteredNumbers(num)
+    }
+    else{
+      switch(e.keyCode){
+        case 8:
+          backspaceOnPin()
+          break
+        case 13:
+          confirmPin()
+          break
+        default:
+          break
+      }
+    }
+  }
+}
+
+window.onload = () => {
+  destroyHintCookie()
+  setInterval(() => setTime(), 1000)
+}

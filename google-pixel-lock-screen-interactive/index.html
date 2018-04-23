@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Google Pixel Lock Screen (Interactive)</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+  
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  
+<div id="wrapper">
+  <div id="extra-swipe-hint">
+    <div id="hint-box">
+      <div id="hint">
+        <h1>Hint<span>Swipe up quickly and let go!</span></h1>
+      </div>
+      <div id="hint-icon"><i class="fa fa-question-circle"></i></div>
+    </div>
+  </div>
+  <div id="phone">
+    <div id="speaker"></div>
+    <div id="power-button"></div>
+    <div id="volume"></div>
+    <div id="case">
+      <div id="screen">
+        <div id="status-bar">
+          <div id="label">
+            <h1>Horizon</h1>
+          </div>
+          <div id="items">
+            <div class="item" id="wifi"><i class="fa fa-wifi"></i></div>
+            <div class="item" id="battery">
+              <h1>100%</h1><i class="fa fa-battery-full"></i>
+            </div>
+          </div>
+        </div>
+        <div id="lock-screen">
+          <div id="time-info-box">
+            <div id="time">
+              <h1></h1>
+            </div>
+            <div id="date">
+              <h1></h1>
+            </div>
+          </div>
+          <div id="bottom-bar">
+            <div class="item" id="mic"><i class="fa fa-microphone"></i></div>
+            <div class="item" id="fingerprint"><i class="fa fa-superpowers"></i></div>
+            <div class="item" id="camera"><i class="fa fa-camera"></i></div>
+          </div>
+          <div id="swipe-hint">
+            <h1>Swipe up to unlock</h1>
+          </div>
+        </div>
+        <div id="enter-pin-screen">
+          <div id="pin-input-wrapper">
+            <div id="pin-hint">
+              <h1>Pin is 1234</h1>
+            </div>
+            <div id="pin-input-field">
+              <div id="entered-numbers-wrapper">
+                <div id="entered-numbers"></div>
+              </div>
+              <div id="backspace">
+                <div class="hover-dot" id="backspace-icon"><i class="fa fa-times"></i></div>
+              </div>
+            </div>
+            <div id="keypad">
+              <div class="item-wrapper hover-dot" data-num="1" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>1</h1>
+                </div>
+              </div>
+              <div class="item-wrapper hover-dot" data-num="2" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>2</h1>
+                  <h2>ABC</h2>
+                </div>
+              </div>
+              <div class="item-wrapper hover-dot" data-num="3" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>3</h1>
+                  <h2>DEF</h2>
+                </div>
+              </div>
+              <div class="item-wrapper hover-dot" data-num="4" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>4</h1>
+                  <h2>GHI</h2>
+                </div>
+              </div>
+              <div class="item-wrapper hover-dot" data-num="5" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>5</h1>
+                  <h2>JKL</h2>
+                </div>
+              </div>
+              <div class="item-wrapper hover-dot" data-num="6" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>6</h1>
+                  <h2>MNO</h2>
+                </div>
+              </div>
+              <div class="item-wrapper hover-dot" data-num="7" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>7</h1>
+                  <h2>PQRS</h2>
+                </div>
+              </div>
+              <div class="item-wrapper hover-dot" data-num="8" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>8</h1>
+                  <h2>TUV</h2>
+                </div>
+              </div>
+              <div class="item-wrapper hover-dot" data-num="9" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>9</h1>
+                  <h2>WXYZ</h2>
+                </div>
+              </div>
+              <div class="item-wrapper zero hover-dot zero" data-num="0" onclick="return addToEnteredNumbers(event)">
+                <div class="item">
+                  <h1>0</h1>
+                  <h2>+</h2>
+                </div>
+              </div>
+              <div class="item-wrapper hover-dot" id="confirm-pin">
+                <div class="item"><i class="fa fa-check"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="hover-dot" id="back-to-lock-screen"><i class="fa fa-caret-left"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>

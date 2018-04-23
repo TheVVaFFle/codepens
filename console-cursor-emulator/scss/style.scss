@@ -1,0 +1,109 @@
+$gray250: rgb(250,250,250);
+$gray240: rgb(240,240,240);
+$gray230: rgb(230,230,230);
+$gray220: rgb(220,220,220);
+$gray210: rgb(210,210,210);
+$gray200: rgb(200,200,200);
+$gray180: rgb(180,180,180);
+$gray150: rgb(150,150,150);
+$gray120: rgb(120,120,120);
+$gray90: rgb(90,90,90);
+$gray60: rgb(60,60,60);
+$gray50: rgb(50,50,50);
+$gray40: rgb(40,40,40);
+$gray30: rgb(30,30,30);
+
+$purple: rgb(171,71,188);
+$darkPurple: rgb(74,20,140);
+$blue: rgb(3,169,244);
+$darkBlue: rgb(26,35,126);
+$lightGreen: rgb(205,220,57);
+$green: rgb(76,175,80);
+$darkGreen: rgb(46,125,50);
+$red: rgb(211,47,47);
+$darkRed: rgb(183,28,28);
+$orange: rgb(255,111,0);
+$darkOrange: rgb(216,67,21);
+$yellow: rgb(251,192,45);
+$darkYellow: rgb(249,168,37);
+
+$shadow1: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+$shadow2: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+$shadow3: rgba(0, 0, 0, 0.19) 0px 10px 30px, rgba(0, 0, 0, 0.23) 0px 6px 10px;
+
+@mixin center{
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+body, html{
+  background-color: $gray30;
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+  
+  div, h1, input{
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+  }
+}
+
+#input-wrapper{
+  height: 20px;
+  margin: 10px;
+  position: relative;
+  
+  #input-field, #input-display{
+    border: none;
+    outline: none;
+    font-size: 20px;
+    height: 20px;
+    left: 0px;
+    line-height: 20px;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+  }
+  
+  #input-field{
+    color: transparent;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  
+  #input-display{
+    color: white;
+    white-space: nowrap;
+    z-index: 1;
+    
+    span{
+      display: inline-block;
+      width: 12px;
+    }
+  }
+    
+  #cursor{
+    animation: flash 1s linear infinite;
+    background-color: white;
+    bottom: 0px;
+    height: 2px;
+    left: 0px;
+    position: absolute;
+    width: 12px;
+    z-index: 2;
+  }
+}
+
+@keyframes flash {
+  from, 50%, to{
+    opacity: 1;
+  }
+  
+  51%, 99% {
+    opacity: 0;
+  }
+}

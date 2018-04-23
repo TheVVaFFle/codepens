@@ -1,0 +1,62 @@
+body, html {
+  background-color: #1e1e1e;
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+}
+body div, body h1, body input, html div, html h1, html input {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 300;
+}
+
+#input-wrapper {
+  height: 20px;
+  margin: 10px;
+  position: relative;
+}
+#input-wrapper #input-field, #input-wrapper #input-display {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  height: 20px;
+  left: 0px;
+  line-height: 20px;
+  padding: 0px;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+#input-wrapper #input-field {
+  color: transparent;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+#input-wrapper #input-display {
+  color: white;
+  white-space: nowrap;
+  z-index: 1;
+}
+#input-wrapper #input-display span {
+  display: inline-block;
+  width: 12px;
+}
+#input-wrapper #cursor {
+  animation: flash 1s linear infinite;
+  background-color: white;
+  bottom: 0px;
+  height: 2px;
+  left: 0px;
+  position: absolute;
+  width: 12px;
+  z-index: 2;
+}
+
+@keyframes flash {
+  from, 50%, to {
+    opacity: 1;
+  }
+  51%, 99% {
+    opacity: 0;
+  }
+}

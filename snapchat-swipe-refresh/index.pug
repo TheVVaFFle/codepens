@@ -1,0 +1,40 @@
+#wrapper
+  #phone
+    #case
+      #screen
+        #swipe-down-hint
+          #hint-box
+            h1 Swipe Down
+            i.fa.fa-arrow-down
+        #status-bar
+          #items
+            div(id='wifi' class='item')
+              i.fa.fa-wifi
+            div(id='battery' class='item')
+              i.fa.fa-battery-full
+            div(id='time' class='item')
+              h1 0:00
+        div(id='app' class='scroll-bar')
+          #refresh-bar
+            #search-bar
+              div(id='user-icon' class='icon')
+                i.fa.fa-user-circle-o
+              div(id='search-icon' class='icon')
+                i.fa.fa-search
+              div(id='new-chat-icon' class='icon')
+                i.fa.fa-comment
+            #refresh-icon
+              i.fa.fa-smile-o
+              .top-of-mouth
+              .rainbow
+                .line-group.line-group-1
+                .line-group.line-group-2
+          #messages
+             each val in ['pic', 'video', 'chat', 'pic', 'pic', 'chat', 'chat', 'video', 'pic', 'video', 'video', 'video']
+               div(class='message ' + val)
+                 .type-icon
+                 .info
+                   .name
+                   .timestamp
+                     
+                     

@@ -1,0 +1,131 @@
+$logo: 'https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Large.png';
+
+@mixin center{
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+html, body, #wrapper{
+  height: 100%;
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+  user-select: none;
+  width: 100%;
+}
+
+#wrapper{
+  #image, #white-blocks{
+    @include center;
+    height: 500px;
+    width: 500px;
+  }
+  
+  #image{
+    background-image: url($logo);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+    
+    &.invisible{
+      opacity: 0;
+    }
+  }
+  
+  #white-blocks{
+    z-index: 2;
+    
+    .block{
+      background-color: white;
+      height: 20px;
+      position: absolute;
+      transition: opacity 500ms;
+      width: 20px;
+      
+      &.visible{
+        opacity: 1;
+      }
+      
+      &.hidden{
+        opacity: 0;
+      }
+    }
+  }
+  
+  #particles{
+    .particle{
+      height: 4px;
+      position: absolute;
+      transition: left 1000ms, top 1000ms, opacity 500ms, transform 1000ms;
+      transition-timing-function: ease-in-out;
+      width: 4px;
+      z-index: 10;
+      
+      &.in-flight{
+        animation: flare;
+        animation-timing-function: cubic-bezier(0.30, 2.40, 0.85, 2.50);
+      }
+      
+      &.in-flight-fade{
+        animation: flare-small;
+        animation-timing-function: cubic-bezier(0.30, 2.40, 0.85, 2.50);
+      }
+
+      &.static{
+        height: 20px;
+        opacity: 0.5;
+        width: 20px;
+      }
+      
+      &.static-fade{
+        height: 20px;
+        opacity: 0;
+        width: 20px;
+      }
+
+      &.hidden{
+        opacity: 0;
+        transition: all 1000ms;
+      }
+    }
+  }
+}
+
+@keyframes flare{
+  from{
+    transform: scale(1) rotate(0deg);
+  }
+  75%{
+    transform: scale(1) rotate(360deg);
+  }
+  to{
+    height: 20px;
+    opacity: 0.5;
+    transform: scale(1) rotate(0deg);
+    width: 20px;
+  }
+}
+
+@keyframes flare-small{
+  from{
+    transform: scale(1) rotate(0deg);
+  }
+  to{
+    height: 20px;
+    opacity: 0;
+    transform: scale(2) rotate(360deg);
+    width: 20px;
+  }
+}
+
+@keyframes fadeIn{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}

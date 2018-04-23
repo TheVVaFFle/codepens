@@ -1,0 +1,94 @@
+#wrapper
+  #extra-swipe-hint
+    #hint-box
+      #hint
+        h1 Hint
+          span Swipe up quickly and let go!
+      #hint-icon
+        i.fa.fa-question-circle
+  #phone
+    #speaker
+    #power-button
+    #volume
+    #case
+      #screen
+        #status-bar
+          #label
+            h1 Horizon
+          #items
+            #wifi.item
+              i.fa.fa-wifi
+            #battery.item
+              h1 100%
+              i.fa.fa-battery-full
+        #lock-screen
+          #time-info-box
+            #time
+              h1
+            #date
+              h1
+          #bottom-bar
+            #mic.item
+              i.fa.fa-microphone
+            #fingerprint.item
+              i.fa.fa-superpowers
+            #camera.item
+              i.fa.fa-camera
+          #swipe-hint
+            h1 Swipe up to unlock
+        #enter-pin-screen
+          #pin-input-wrapper
+            #pin-hint
+              h1 Pin is 1234
+            #pin-input-field
+              #entered-numbers-wrapper
+                #entered-numbers
+              #backspace
+                #backspace-icon.hover-dot
+                  i.fa.fa-times
+            #keypad
+              div(class='item-wrapper hover-dot' data-num='1' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 1
+              div(class='item-wrapper hover-dot' data-num='2' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 2
+                  h2 ABC
+              div(class='item-wrapper hover-dot' data-num='3' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 3
+                  h2 DEF
+              div(class='item-wrapper hover-dot' data-num='4' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 4
+                  h2 GHI
+              div(class='item-wrapper hover-dot' data-num='5' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 5
+                  h2 JKL
+              div(class='item-wrapper hover-dot' data-num='6' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 6
+                  h2 MNO
+              div(class='item-wrapper hover-dot' data-num='7' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 7
+                  h2 PQRS
+              div(class='item-wrapper hover-dot' data-num='8' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 8
+                  h2 TUV
+              div(class='item-wrapper hover-dot' data-num='9' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 9
+                  h2 WXYZ
+              div(class='item-wrapper zero hover-dot zero' data-num='0' onclick='return addToEnteredNumbers(event)')
+                .item
+                  h1 0
+                  h2 +
+              #confirm-pin.item-wrapper.hover-dot
+                .item
+                  i.fa.fa-check
+          #back-to-lock-screen.hover-dot
+            i.fa.fa-caret-left
+                     
